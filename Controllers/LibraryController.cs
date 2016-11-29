@@ -9,28 +9,39 @@ namespace mvc_library.Controllers
 {
     public class LibraryController : Controller
     {
-        public static Library library = new Library("The Library of Alexandria", "Alexandria");
+        private LibraryContext _db;
+
+        public LibraryController(LibraryContext db)
+        {
+          _db = db;
+        }
+        
+
         public IActionResult Index()
         {
-            return View(library);
+            var libraries = _db.Libraries.ToList();
+            return View(libraries);
         }
 
-        public IActionResult AddBook()
-        {
-            return View();
-        }
+        // public IActionResult AddBook()
+        // {
+        //     return View();
+        // }
 
-        [HttpPost]
-        public IActionResult AddBook(string title, string author)
-        {
-            if (title == null || author == null)
-            {
-                return RedirectToAction("AddBook");
-            }
-            library.AddBook(new Book(title, author));
-            return RedirectToAction("Index");
-        }
-
-
+        // [HttpPost]
+        // public IActionResult AddBook(string title, string author, string description)
+        // {
+        //     if (title == null || author == null)
+        //     {
+        //         return RedirectToAction("AddBook");
+        //     }
+        //     library.AddBook(new Book(title, author, description));
+        //     return RedirectToAction("Index");
+        // }
+        // public IActionResult ViewBook(int id)
+        // {
+        //   var myBook = library.GetBookById(id);
+        //   return View(myBook);
+        // }
     }
 }
