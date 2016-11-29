@@ -5,10 +5,13 @@
 
 <a asp-controller="Library" asp-action="AddBook">Add Book</a>
 
-
+@{
+  var index = 0;
+}
 
 <ul>
   @foreach(var book in Model.Books){
-    <li>@book.Title - @book.Author</li>
+    <li><a asp-controller="Library" asp-action="ViewBook" asp-route-id="@index">@book.Title - @book.Author</a></li>
+    index++;
   }
 </ul>

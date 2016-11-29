@@ -21,16 +21,19 @@ namespace mvc_library.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddBook(string title, string author)
+        public IActionResult AddBook(string title, string author, string description)
         {
             if (title == null || author == null)
             {
                 return RedirectToAction("AddBook");
             }
-            library.AddBook(new Book(title, author));
+            library.AddBook(new Book(title, author, description));
             return RedirectToAction("Index");
         }
-
-
+        public IActionResult ViewBook(int id)
+        {
+          var myBook = library.GetBookById(id);
+          return View(myBook);
+        }
     }
 }

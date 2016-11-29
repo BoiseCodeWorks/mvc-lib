@@ -24,6 +24,9 @@ namespace mvc_library.Models
             return Books;
         }
 
+        public Book GetBookById(int index){
+            return Books[index];
+        }
 
     }
 }
