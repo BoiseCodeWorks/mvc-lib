@@ -13,14 +13,38 @@ namespace mvc_library.Controllers
 
         public LibraryController(LibraryContext db)
         {
-          _db = db;
+            _db = db;
         }
-        
 
         public IActionResult Index()
         {
             var libraries = _db.Libraries.ToList();
             return View(libraries);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Library library)
+        {
+            _db.Libraries.Add(library);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Details(int id)
+        {
+            var library = _db.Libraries.Find(id);
+
+            if (library == null)
+            {
+                return NotFound($"Sorry there is no library by that id: {id}");
+            }
+
+            return View(library);
+
         }
 
         // public IActionResult AddBook()
