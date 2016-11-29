@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace mvc_library
 {
@@ -27,6 +29,12 @@ namespace mvc_library
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Use Library database in Application
+            services.AddDbContext<LibraryContext>(x =>
+            {
+                x.UseSqlite("Filename=./MVCLibrary.db");
+            });
+
             // Add framework services.
             services.AddMvc();
         }
