@@ -1,17 +1,12 @@
-@model mvc_library.Models.Library
+@model List<mvc_library.Models.Library>
 
-<h1>@Model.Name</h1>
-<p>@Model.Address</p>
+<h1>The Great Libraries</h1>
+<p>What a wealth of knowledge!!!</p>
 
-<a asp-controller="Library" asp-action="AddBook">Add Book</a>
-
-@{
-  var index = 0;
-}
+<a asp-controller="Library" asp-action="AddLibrary">Add Library</a>
 
 <ul>
-  @foreach(var book in Model.Books){
-    <li><a asp-controller="Library" asp-action="ViewBook" asp-route-id="@index">@book.Title - @book.Author</a></li>
-    index++;
+  @foreach(var library in Model){
+    <li><a asp-controller="Library" asp-action="Details" asp-route-id="@library.Id">@library.Name</a></li>
   }
 </ul>
